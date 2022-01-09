@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 
 	"github.com/spf13/cobra"
 	"github.com/tbonus/mhp3rd_damage_calculator/calculator"
@@ -16,9 +17,11 @@ var rootCmd = &cobra.Command{
 	- attack power
 	- affinity
 	- sharpness
-	- stat buffs.`,
+	- basic stat buffs.`,
 	Example: `mhp3rd_weapon_calculator <weapon damage: int> <sharpness: string> <affinity: int>
-	Sharpness values: r (red), o (orange), y (yellow), g (green), b (blue), w (white)`,
+	Weapon damage should be just weapon damage, not attack from player status.
+	Sharpness values: r (red), o (orange), y (yellow), g (green), b (blue), w (white).
+	Affinity should be passed as percentage value, negative affinity should start with 'n', eg: 'n20' is -20% affinity`,
 	Run: func(cmd *cobra.Command, args []string) {
 
 		if len(args) == 0 {
@@ -33,7 +36,7 @@ var rootCmd = &cobra.Command{
 
 		weapon_damage, _ := strconv.Atoi(args[0])
 		sharpness := args[1]
-		affinity, _ := strconv.Atoi(args[2])
+		affinity, _ := strconv.Atoi(strings.Replace(args[2], "n", "-", 1))
 
 		calculator.Damage_calculator(weapon_damage, sharpness, affinity)
 	},

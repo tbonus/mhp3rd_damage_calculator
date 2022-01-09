@@ -18,7 +18,6 @@ type Modifier struct {
 
 var modifiers = []Modifier{
 	{"Base damage", 0},
-	{"Weapon upgraded", 15},
 	{"+ attack up L", 15 + 20},
 	{"+ powercharm", 15 + 20 + 6},
 	{"+ powertalon", 15 + 20 + 6 + 9},
